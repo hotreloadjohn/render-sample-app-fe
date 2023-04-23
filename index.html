@@ -7,6 +7,36 @@
     <title>Sample App</title>
   </head>
   <body>
-    <h1>My Sample App</h1>
+    <h1>Sample Fullstack App hosted on Render</h1>
+    <h2>Test backend and planetscale connections</h2>
+    <button id="data-btn">Fetch Data</button>
+    <div class="dp-user"></div>
+
+    <script>
+      const dataBtn = document.querySelector("#data-btn");
+      const dpUser = document.querySelector(".dp-user");
+
+      dataBtn.addEventListener("click", () => {
+        getData();
+      });
+
+      function getData() {
+        const url = "https://sample-be.onrender.com/api/test";
+        const options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        fetch(url, options)
+          .then((res) => res.json())
+          .then((res) => {
+            const data = res.data;
+            dpUser.innerHTML = JSON.stringify(data, null, 2);
+          })
+          .catch((err) => console.log(err));
+      }
+    </script>
   </body>
 </html>
